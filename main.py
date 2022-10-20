@@ -27,14 +27,14 @@ def choix_1_normal():
     print("Vous avez eu", lancer_de_1, "et", lancer_de_2, "(", combiner_de, ")")
     print("Combat en cours")
     time.sleep(random.randint(0, 0))
-    nbr_combat = nbr_combat + 1
+    nbr_combat += 1
     if difficulte_adversaire < combiner_de:
         print("Vous avez GAGNER!")
-        nbr_vie = nbr_vie + difficulte_adversaire
-        combat_gagner = combat_gagner + 1
-        victoire_daffilee = victoire_daffilee + 1
+        nbr_vie += difficulte_adversaire
+        combat_gagner += 1
+        victoire_daffilee += 1
     else:
-        nbr_vie = nbr_vie - difficulte_adversaire
+        nbr_vie -= difficulte_adversaire
         print("Vous avez PERDUE!")
         victoire_daffilee = 0
 
@@ -50,14 +50,14 @@ def choix_1_boss():
     print("Vous avez eu", lancer_de_1, "et", lancer_de_2, "(", combiner_de, ")")
     print("Combat en cours")
     time.sleep(random.randint(0, 0))
-    nbr_combat = nbr_combat + 1
+    nbr_combat += 1
     if boss < combiner_de:
         print("Vous avez GAGNER!")
-        nbr_vie = nbr_vie + boss
-        combat_gagner = combat_gagner + 1
-        victoire_daffilee = victoire_daffilee + 1
+        nbr_vie += boss
+        combat_gagner += 1
+        victoire_daffilee = 0
     else:
-        nbr_vie = nbr_vie - boss
+        nbr_vie -= boss
         print("Vous avez PERDUE!")
         victoire_daffilee = 0
 
@@ -102,7 +102,7 @@ while True:
             if choix == 1:
                 choix_1_normal()
             elif choix == 2:
-                nbr_vie = nbr_vie - 1
+                nbr_vie -= 1
             elif choix == 3:
                 choix_3()
             else:
