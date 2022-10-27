@@ -1,16 +1,18 @@
 """
 Cree par Alex Gaudreau le 26./0.22
+Groupe 406
 Code qui simule des combats de monstres avec des lancers de des.
 """
 import random
-import time
+
+
 nbr_vie = 20
 nbr_combat = 0
 combat_gagner = 0
 victoire_daffilee = 0
 
 
-def choix_3():
+def regle():
     """
     Cette fonction donne les regles du jeu.
     :return:
@@ -23,7 +25,7 @@ def choix_3():
           "chaque adversaire, dans le cas de l’évitement, il y a une pénalité de 1 point de vie.")
 
 
-def choix_1_normal():
+def attack_normal():
     """
     quand que le joueur clique 1 et il n'y a pas 3 victoire daffiler.
     Cette fonction fait tout le combat entre le joueur et l'enemi.
@@ -38,7 +40,6 @@ def choix_1_normal():
     combiner_de = lancer_de_1 + lancer_de_2
     print(f"Vous avez eu {lancer_de_1} et {lancer_de_2} ({combiner_de})")
     print("Combat en cours")
-    time.sleep(random.randint(2, 6))
     nbr_combat += 1
     if combiner_difficulte_adversaire < combiner_de:
         print("Vous avez GAGNER!")
@@ -51,7 +52,7 @@ def choix_1_normal():
         victoire_daffilee = 0
 
 
-def choix_1_boss():
+def attack_boss():
     """
     Quand que le joueur clique 1 et il a 3 victoire daffiler.
     Cette fonction fait rour le combat entre le joueur et le boss.
@@ -66,7 +67,6 @@ def choix_1_boss():
     combiner_de = lancer_de_1 + lancer_de_2
     print(f"Vous avez eu {lancer_de_1} et {lancer_de_2} ({combiner_de})")
     print("Combat en cours")
-    time.sleep(random.randint(0, 0))
     nbr_combat += 1
     if boss < combiner_de:
         print("Vous avez GAGNER!")
@@ -79,11 +79,17 @@ def choix_1_boss():
         victoire_daffilee = 0
 
 
-while True:
-    difficulte_adversaire_1 = random.randint(1, 5)
-    difficulte_adversaire_2 = random.randint(1, 5)
-    combiner_difficulte_adversaire = difficulte_adversaire_1 + difficulte_adversaire_2
-    boss = random.randint(10, 11)
+boucle_jeu = True
+jouer_affiche_regle = False
+difficulte_adversaire_1, difficulte_adversaire_2, combiner_difficulte_adversaire, boss = 0, 0, 0, 0
+while boucle_jeu:
+    if not jouer_affiche_regle:
+        difficulte_adversaire_1 = random.randint(1, 5)
+        difficulte_adversaire_2 = random.randint(1, 5)
+        combiner_difficulte_adversaire = difficulte_adversaire_1 + difficulte_adversaire_2
+        boss = random.randint(10, 11)
+    else:
+        jouer_affiche_regle = False
     if nbr_vie < 1:
         print(f"Vous n'avez plus de vie apres {nbr_combat} combat et vous avez gagner {combat_gagner} combats!")
         rejouer = str(input("Voulez-vous rejouer? o/n_"))
@@ -92,7 +98,7 @@ while True:
             nbr_combat = 0
             combat_gagner = 0
         else:
-            break
+            boucle_jeu = False
     else:
         if victoire_daffilee == 3:
             print(f"Vous tombez face à face avec un BOSS de difficulté {boss} et\n"
@@ -103,12 +109,13 @@ while True:
                               "   3- Quitter la partie\n"
                               " "))
             if choix == 1:
-                choix_1_boss()
+                attack_boss()
             elif choix == 2:
-                choix_3()
+                regle()
+                jouer_affiche_regle = True
             else:
                 print("Merci et au revoir...")
-                break
+                boucle_jeu = False
         else:
             print(f"Vous tombez face à face de 2 adversaires de difficulté {difficulte_adversaire_1} et\n"
                   f"{difficulte_adversaire_2} ({combiner_difficulte_adversaire}) vous avez {nbr_vie} vie")
@@ -119,11 +126,12 @@ while True:
                               "   4- Quitter la partie\n"
                               " "))
             if choix == 1:
-                choix_1_normal()
+                attack_normal()
             elif choix == 2:
                 nbr_vie -= 1
             elif choix == 3:
-                choix_3()
+                regle()
+                jouer_affiche_regle = True
             else:
                 print("Merci et au revoir...")
-                break
+                boucle_jeu = False
