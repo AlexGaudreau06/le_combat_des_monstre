@@ -80,16 +80,16 @@ def attack_boss():
 
 
 boucle_jeu = True
-jouer_affiche_regle = False
+joueur_affiche_regle = False
 difficulte_adversaire_1, difficulte_adversaire_2, combiner_difficulte_adversaire, boss = 0, 0, 0, 0
 while boucle_jeu:
-    if not jouer_affiche_regle:
+    if not joueur_affiche_regle:
         difficulte_adversaire_1 = random.randint(1, 5)
         difficulte_adversaire_2 = random.randint(1, 5)
         combiner_difficulte_adversaire = difficulte_adversaire_1 + difficulte_adversaire_2
         boss = random.randint(10, 11)
     else:
-        jouer_affiche_regle = False
+        joueur_affiche_regle = False
     if nbr_vie < 1:
         print(f"Vous n'avez plus de vie apres {nbr_combat} combat et vous avez gagner {combat_gagner} combats!")
         rejouer = str(input("Voulez-vous rejouer? o/n_"))
@@ -97,6 +97,7 @@ while boucle_jeu:
             nbr_vie = 20
             nbr_combat = 0
             combat_gagner = 0
+            victoire_daffilee = 0
         else:
             boucle_jeu = False
     else:
@@ -112,7 +113,7 @@ while boucle_jeu:
                 attack_boss()
             elif choix == 2:
                 regle()
-                jouer_affiche_regle = True
+                joueur_affiche_regle = True
             else:
                 print("Merci et au revoir...")
                 boucle_jeu = False
@@ -131,7 +132,7 @@ while boucle_jeu:
                 nbr_vie -= 1
             elif choix == 3:
                 regle()
-                jouer_affiche_regle = True
+                joueur_affiche_regle = True
             else:
                 print("Merci et au revoir...")
                 boucle_jeu = False
